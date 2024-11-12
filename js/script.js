@@ -5,7 +5,16 @@ const elsHeaderLink = document.querySelectorAll(".header__link"),
     elsSlider = document.querySelectorAll(".product__img"),
     elsOwlSlider = document.querySelectorAll(".slider-item__img"),
     elNext = document.querySelector(".next"),
-    elPrev = document.querySelector(".prev");
+    elPrev = document.querySelector(".prev"),
+    elPlus = document.querySelector(".plus"),
+    elMinus = document.querySelector(".minus"),
+    elCounter = document.querySelector(".counter"),
+    elAddCartBtn = document.querySelector(".addcart-btn"),
+    elCartCounter = document.querySelector(".header__cart-counter"),
+    elHeaderCart = document.querySelector(".header__cart"),
+    elCartModal = document.querySelector(".modal__cart"),
+    elModalIsEmpty = document.querySelector(".modal__cart-empty"),
+    elModalCartBody = document.querySelector(".modal__cart-body");
 
 elsHeaderLink.forEach(headerLink => {
     headerLink.addEventListener("click", ()=> {
@@ -46,7 +55,7 @@ if(elsOwlSlider) {
     })
 }
 
-indexCounter = 0;
+let indexCounter = 0;
 
 if(elNext) {
     elNext.addEventListener("click", ()=> {
@@ -81,3 +90,31 @@ if(elPrev) {
 
     })
 }
+
+let counter = 0;
+
+elPlus.addEventListener("click", ()=> {
+    counter++;
+    elCounter.innerHTML = counter;
+})
+
+elMinus.addEventListener("click", ()=> {
+    if(counter!=0) {
+        counter--;
+        elCounter.innerHTML = counter;
+    }
+})
+
+elAddCartBtn.addEventListener("click", ()=> {
+    if(counter!= 0) elCartCounter.style.display = "block";
+    elCartCounter.innerHTML = counter;
+})
+
+
+elHeaderCart.addEventListener("click", ()=> {
+    elCartModal.classList.toggle("active");
+    if(counter!=0) {
+        elModalIsEmpty.style.display = "none";
+        elModalCartBody.style.display = "block";
+    }
+})
