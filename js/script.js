@@ -14,7 +14,11 @@ const elsHeaderLink = document.querySelectorAll(".header__link"),
     elHeaderCart = document.querySelector(".header__cart"),
     elCartModal = document.querySelector(".modal__cart"),
     elModalIsEmpty = document.querySelector(".modal__cart-empty"),
-    elModalCartBody = document.querySelector(".modal__cart-body");
+    elModalCartBody = document.querySelector(".modal__cart-body"),
+    elModalPrev = document.querySelector(".js-modal-prev"),
+    elModalNext = document.querySelector(".js-modal-next"),
+    elModalPreview = document.querySelector(".preview__modal")
+    elCloseBtn = document.querySelector(".close__btn");
 
 elsHeaderLink.forEach(headerLink => {
     headerLink.addEventListener("click", ()=> {
@@ -91,6 +95,42 @@ if(elPrev) {
     })
 }
 
+// MODAL SLIDER
+
+if(elModalNext) {
+    elModalNext.addEventListener("click", ()=> {
+        if(indexCounter<3) {
+            indexCounter++;
+            elsSlider.forEach(carousel => {
+                carousel.style.transform = `translateX(-${indexCounter * 100}%)`;
+            })
+        } else {
+            indexCounter = 0;
+            elsSlider.forEach(carousel => {
+                carousel.style.transform = `translateX(-${indexCounter * 100}%)`;
+            })
+        }
+
+    })
+}
+
+if(elModalPrev) {
+    elModalPrev.addEventListener("click", ()=> {
+        if(indexCounter == 0) {
+            indexCounter=3;
+            elsSlider.forEach(carousel => {
+                carousel.style.transform = `translateX(-${indexCounter * 100}%)`;
+            })
+        } else {
+            indexCounter--;
+            elsSlider.forEach(carousel => {
+                carousel.style.transform = `translateX(-${indexCounter * 100}%)`;
+            })
+        }
+
+    })
+}
+
 let counter = 0;
 
 elPlus.addEventListener("click", ()=> {
@@ -118,3 +158,15 @@ elHeaderCart.addEventListener("click", ()=> {
         elModalCartBody.style.display = "block";
     }
 })
+
+elsSlider.forEach(item => {
+    item.addEventListener("click", ()=> {
+        elModalPreview.style.display = "flex";
+    })
+})
+
+if(elCloseBtn) {
+    elCloseBtn.addEventListener("click", ()=> {
+        elModalPreview.style.display = "none";
+    })
+}
